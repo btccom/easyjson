@@ -38,9 +38,9 @@ func getPkgPath(fname string, isDir bool) (string, error) {
 		prefix := path.Join(normalizePath(p), "src") + "/"
 		if rel := strings.TrimPrefix(fname, prefix); rel != fname {
 			if !isDir {
-				return path.Dir(rel), nil
+				return fixPkgPathVendoring(path.Dir(rel)), nil
 			} else {
-				return path.Clean(rel), nil
+				return fixPkgPathVendoring(path.Clean(rel)), nil
 			}
 		}
 	}

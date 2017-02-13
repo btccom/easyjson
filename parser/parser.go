@@ -95,3 +95,12 @@ func getDefaultGoPath() (string, error) {
 	output, err := exec.Command("go", "env", "GOPATH").Output()
 	return string(output), err
 }
+
+// fixes vendored paths
+func fixPkgPathVendoring(pkgPath string) string {
+	const vendor = "/vendor/"
+	if i := strings.LastIndex(pkgPath, vendor); i != -1 {
+		return pkgPath[i+len(vendor):]
+	}
+	return pkgPath
+}
